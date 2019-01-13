@@ -1,41 +1,25 @@
 import pydgraph
 import json 
 
-query = """
-{
-        items(func: eq(item_name, "Time of Triumph"), orderdesc: timestamp, first: 2) {
-            market_data {
-                buy_order_graph {
-                    listings(orderdesc: price) {
-                        price
-                        amount_at_price
-                        cumulative_listings
-                    }
-                }
-                sell_order_graph {
-                    listings(orderasc: price) {
-                        price
-                        amount_at_price
-                        cumulative_listings
-                    }
-                }
-            }
-        }
-    }
-"""
-
-def getSunshineData():
-    items = queryDB(query)
-    marketItems = {
-        "current_item": MarketItem(items['items'][0]),
-        "previous_item": MarketItem(items['items'][1])
-    }
-    return marketItems 
-
-def queryDB(query):
+def query(query):
     client = newDgraphClient()
-    data = client.query(query)
+    try:
+        data = client.query(query)
+    except:
+        print("Coudld not query")
+        return False 
     return json.loads(data.json)
+
+def mutate(mutation):
+    client = newDgraphClient()
+    try:
+        txn = client.txn()
+        assigned = txn.mutate(set_obj=mutation)
+        txn.commit()
+        return assigned.uids['blank-0']
+    except:
+        print("Could not do mutation")
+        return Exception
 
 def newDgraphClient():
     client_stub = pydgraph.DgraphClientStub('localhost:9080')
@@ -44,6 +28,9 @@ def newDgraphClient():
 class MarketItem:
     def __init__(self, item):
         self.item = item
+
+    def getUID(self):
+        return self.item['uid']
 
     def getMarketData(self):
         return self.item['market_data'][0]
@@ -80,6 +67,12 @@ class MarketItem:
     def getDemandCumulative(self, i):
         return self.getDemandListing(i)['cumulative_listings']
 
+    def getSupplyUID(self, i):
+        return self.getSupplyListing(i)['uid']
+
+    def getDemandUID(self, i):
+        return self.getDemandListing(i)['uid']
+
     ### Getters for all of a certain field in a MarketItem ###
     def getSupplyPrices(self):
         supplyPrices = []
@@ -93,4 +86,15 @@ class MarketItem:
             demandPrices.append(listing['price'])
         return demandPrices
 
+    def getSupplyUIDs(self):
+        supplyUIDs = []
+        for listing in self.getSupplyListings():
+            supplyUIDs.append(listing['uid'])
+        return supplyUIDs
+
+    def getDemandUIDs(self):
+        demandUIDs = []
+        for listing in self.getDemandListings():
+            demandUIDs.append(listing['uid'])
+        return demandUIDs
     ### End Getters ###

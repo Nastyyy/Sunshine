@@ -1,7 +1,7 @@
 import json
+import Graph as graph
+from SunshineData import getSunshineData, saveSunshineData
 from Algorithm import Algorithm
-from DataHandler import getSunshineData 
-from Graph import webGraph, localGraph 
 import Slopes as slopes
 
 items = getSunshineData() 
@@ -28,6 +28,7 @@ algorithm_data = {
     "supplyQuantity":current_item.getSupplyCumulative(0) 
 }
 
+'''
 sunshine = Algorithm(algorithm_data)
 price = sunshine.run()
 
@@ -38,5 +39,6 @@ supplySlopes = slopes.calculateSlopes(current_item.getSupplyListings())
 
 # Plotting logic. webGraph() for a share-able graph, 
 # localGraph() for development or speed 
-#webGraph(buy_prices, buy_slopes, sell_prices, sell_slopes)
-#localGraph(current_item.getDemandPrices(), demandSlopes, current_item.getSupplyPrices(), supplySlopes)
+#graph.webGraph(buy_prices, buy_slopes, sell_prices, sell_slopes)
+#graph.localGraph(current_item.getDemandPrices(), demandSlopes, current_item.getSupplyPrices(), supplySlopes)
+'''

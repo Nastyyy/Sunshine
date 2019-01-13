@@ -22,6 +22,7 @@ def calculateSlopes(listings):
             next_cumul = listing['cumulative_listings']
             slopes.append(calculateSlope(start_price, start_cumul, next_price, next_cumul))
             continue
+        # Inner listings
         prev_price = listings[i-1]['price']
         prev_cumul = listings[i-1]['cumulative_listings']
         next_price = listings[i+1]['price']
