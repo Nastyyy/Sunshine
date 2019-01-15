@@ -17,9 +17,9 @@ def mutate(mutation):
         assigned = txn.mutate(set_obj=mutation)
         txn.commit()
         return assigned.uids['blank-0']
-    except:
+    except Exception as e:
         print("Could not do mutation")
-        return Exception
+        return e 
 
 def newDgraphClient():
     client_stub = pydgraph.DgraphClientStub('localhost:9080')

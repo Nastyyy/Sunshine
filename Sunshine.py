@@ -9,6 +9,10 @@ items = getSunshineData()
 current_item = items['current_item']
 previous_item = items['previous_item']
 
+#print(json.dumps(slopes.calculateSlopes(current_item)['supply_slopes'], indent=2, sort_keys=True))
+slopeData = slopes.calculateSlopes(current_item)
+
+'''
 demandSlope = slopes.calculateSlope(current_item.getDemandPrice(0), 
                                     current_item.getDemandCumulative(0), 
                                     current_item.getDemandPrice(1), 
@@ -18,6 +22,10 @@ supplySlope = slopes.calculateSlope(current_item.getSupplyPrice(0),
                                     current_item.getSupplyCumulative(0), 
                                     current_item.getSupplyPrice(1), 
                                     current_item.getSupplyCumulative(1))
+'''
+
+supplySlope = slopeData.supplySlopeData[0]['slope']
+demandSlope = slopeData.demandSlopeData[0]['slope']
 
 algorithm_data = {
     "demandPrice": current_item.getDemandPrice(0),
@@ -28,17 +36,14 @@ algorithm_data = {
     "supplyQuantity":current_item.getSupplyCumulative(0) 
 }
 
-'''
 sunshine = Algorithm(algorithm_data)
-price = sunshine.run()
 
-print(price)
+print(saveSunshineData(sunshine.equilibrium_price, 
+                       slopeData.supplySlopeData, 
+                       slopeData.demandSlopeData))
 
-demandSlopes = slopes.calculateSlopes(current_item.getDemandListings())
-supplySlopes = slopes.calculateSlopes(current_item.getSupplyListings())
-
+### TODO: Update to fit new calculateSlopes logic ###
 # Plotting logic. webGraph() for a share-able graph, 
 # localGraph() for development or speed 
 #graph.webGraph(buy_prices, buy_slopes, sell_prices, sell_slopes)
-#graph.localGraph(current_item.getDemandPrices(), demandSlopes, current_item.getSupplyPrices(), supplySlopes)
-'''
+#graph.localGraph(current_item.getDemandPrices(), slopeData., current_item.getSupplyPrices(), supplySlopes)

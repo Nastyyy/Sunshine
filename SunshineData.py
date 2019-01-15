@@ -34,5 +34,10 @@ def getSunshineData():
     }
     return marketItems 
 
-def saveSunshineData(data):
+def saveSunshineData(equil_price, supplySlopeData, demandSlopeData):
+    data = {
+        "equilibrium_price": equil_price,
+        "supply_slopes": supplySlopeData,
+        "demand_slopes": demandSlopeData
+    }
     return db.mutate(data)
