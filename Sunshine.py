@@ -45,5 +45,5 @@ print(saveSunshineData(sunshine.equilibrium_price,
 ### TODO: Update to fit new calculateSlopes logic ###
 # Plotting logic. webGraph() for a share-able graph, 
 # localGraph() for development or speed 
-#graph.webGraph(buy_prices, buy_slopes, sell_prices, sell_slopes)
-#graph.localGraph(current_item.getDemandPrices(), slopeData., current_item.getSupplyPrices(), supplySlopes)
+#graph.webGraph(current_item.getDemandPrices(), slopeData.getDemandSlopes(), current_item.getSupplyPrices(), slopeData.getSupplySlopes())
+#graph.localGraph(current_item.getDemandPrices(), slopeData.getDemandSlopes(), current_item.getSupplyPrices(), slopeData.getSupplySlopes())

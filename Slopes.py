@@ -6,6 +6,18 @@ class SlopeData:
         self.supplySlopeData = supply_slopes
         self.demandSlopeData = demand_slopes
 
+    def getSupplySlopes(self): 
+        slopes = []
+        for item in self.supplySlopeData:
+            slopes.append(item['slope'])
+        return slopes
+
+    def getDemandSlopes(self):
+        slopes = []
+        for item in self.demandSlopeData:
+            slopes.append(item['slope'])
+        return slopes
+
 def calculateSlopes(marketItem):
     return SlopeData(calculateListingSlopes(marketItem.getSupplyListings()), calculateListingSlopes(marketItem.getDemandListings()))
 
