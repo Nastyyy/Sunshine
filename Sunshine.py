@@ -12,7 +12,6 @@ previous_item = items['previous_item']
 #print(json.dumps(slopes.calculateSlopes(current_item)['supply_slopes'], indent=2, sort_keys=True))
 slopeData = slopes.calculateSlopes(current_item)
 
-'''
 demandSlope = slopes.calculateSlope(current_item.getDemandPrice(0), 
                                     current_item.getDemandCumulative(0), 
                                     current_item.getDemandPrice(1), 
@@ -22,7 +21,6 @@ supplySlope = slopes.calculateSlope(current_item.getSupplyPrice(0),
                                     current_item.getSupplyCumulative(0), 
                                     current_item.getSupplyPrice(1), 
                                     current_item.getSupplyCumulative(1))
-'''
 
 supplySlope = slopeData.supplySlopeData[0]['slope']
 demandSlope = slopeData.demandSlopeData[0]['slope']
