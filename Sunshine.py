@@ -9,7 +9,6 @@ items = getSunshineData()
 current_item = items['current_item']
 previous_item = items['previous_item']
 
-#print(json.dumps(slopes.calculateSlopes(current_item)['supply_slopes'], indent=2, sort_keys=True))
 slopeData = slopes.calculateSlopes(current_item)
 
 demandSlope = slopes.calculateSlope(current_item.getDemandPrice(0), 
