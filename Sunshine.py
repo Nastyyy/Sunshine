@@ -11,19 +11,18 @@ previous_item = items['previous_item']
 
 slopeData = SlopeData(current_item.getSupplyListings(), current_item.getDemandListings())
 
-supplySlope = slopeData.supplySlopeData[0]['slope']
-demandSlope = slopeData.demandSlopeData[0]['slope']
-
 algorithm_data = {
     "demandPrice": current_item.getDemandPrice(0),
-    "demandSlope": demandSlope,
+    "demandSlope": slopeData.getDemandSlopes()[0],
     "demandQuantity": current_item.getDemandCumulative(0),
     "supplyPrice": current_item.getSupplyPrice(0),
-    "supplySlope" : supplySlope,
+    "supplySlope" : slopeData.getSupplySlopes()[0],
     "supplyQuantity":current_item.getSupplyCumulative(0) 
 }
 
 sunshine = Algorithm(algorithm_data)
+
+print(sunshine.equilibrium_price)
 
 try:
     print(saveSunshineData([current_item.getUID(), previous_item.getUID()],
