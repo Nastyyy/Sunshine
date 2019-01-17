@@ -38,18 +38,16 @@ def getSunshineData(item_name):
 # items_used should be an array of uids used
 def saveSunshineData(items_used, equil_price, supplySlopeData, demandSlopeData):
     data = {
-        "timestamp:": str(datetime.now()),
+        "timestamp": datetime.now().isoformat(),
         "items.used": createUIDEdge(items_used),
         "equilibrium_price": equil_price,
         "supply_slopes": supplySlopeData,
         "demand_slopes": demandSlopeData
     }
     try:
-        mutation = db.mutate(data)
+        return db.mutate(data)
     except Exception as e:
-        print(e)
-        mutation = e
-    return mutation 
+        return e
 
 # Used to create edges that hold uid(s)
 def createUIDEdge(items_used):
