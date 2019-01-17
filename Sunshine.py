@@ -4,7 +4,7 @@ from SunshineData import getSunshineData, saveSunshineData
 from Algorithm import Algorithm
 import Slopes as slopes
 
-items = getSunshineData() 
+items = getSunshineData("Time of Triumph") 
 
 current_item = items['current_item']
 previous_item = items['previous_item']
@@ -35,9 +35,13 @@ algorithm_data = {
 
 sunshine = Algorithm(algorithm_data)
 
-print(saveSunshineData(sunshine.equilibrium_price, 
+try:
+    print(saveSunshineData([current_item.getUID(), previous_item.getUID()],
+                       sunshine.equilibrium_price, 
                        slopeData.supplySlopeData, 
                        slopeData.demandSlopeData))
+except Exception as e:
+    print(e)
 
 ### TODO: Update to fit new calculateSlopes logic ###
 # Plotting logic. webGraph() for a share-able graph, 
