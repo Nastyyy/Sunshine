@@ -26,6 +26,7 @@ def calculateListingSlopes(listings):
     for i, listing in enumerate(listings):
         if i == 0:
             # First listing
+            # TODO: Check previous listing for slope at a price below this
             start_price = listing['price']    
             start_cumul = listing['cumulative_listings']
             nextListing = listings[i+1]
@@ -36,6 +37,7 @@ def calculateListingSlopes(listings):
             continue
         if i == len(listings)-1:
             # Last listing
+            # TODO: Check previous listing for a slope at price above this
             startListing = listings[i-1]
             start_price = startListing['price']
             start_cumul = startListing['cumulative_listings']

@@ -11,16 +11,6 @@ previous_item = items['previous_item']
 
 slopeData = slopes.calculateSlopes(current_item)
 
-demandSlope = slopes.calculateSlope(current_item.getDemandPrice(0), 
-                                    current_item.getDemandCumulative(0), 
-                                    current_item.getDemandPrice(1), 
-                                    current_item.getDemandCumulative(1))
-
-supplySlope = slopes.calculateSlope(current_item.getSupplyPrice(0), 
-                                    current_item.getSupplyCumulative(0), 
-                                    current_item.getSupplyPrice(1), 
-                                    current_item.getSupplyCumulative(1))
-
 supplySlope = slopeData.supplySlopeData[0]['slope']
 demandSlope = slopeData.demandSlopeData[0]['slope']
 
@@ -37,13 +27,12 @@ sunshine = Algorithm(algorithm_data)
 
 try:
     print(saveSunshineData([current_item.getUID(), previous_item.getUID()],
-                       sunshine.equilibrium_price, 
-                       slopeData.supplySlopeData, 
-                       slopeData.demandSlopeData))
+                           sunshine.equilibrium_price, 
+                           slopeData.supplySlopeData, 
+                           slopeData.demandSlopeData))
 except Exception as e:
     print(e)
 
-### TODO: Update to fit new calculateSlopes logic ###
 # Plotting logic. webGraph() for a share-able graph, 
 # localGraph() for development or speed 
 #graph.webGraph(current_item.getDemandPrices(), slopeData.getDemandSlopes(), current_item.getSupplyPrices(), slopeData.getSupplySlopes())

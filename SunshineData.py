@@ -38,6 +38,7 @@ def getSunshineData(item_name):
 # items_used should be an array of uid(s) used
 def saveSunshineData(items_used, equil_price, supplySlopeData, demandSlopeData):
     data = {
+        "algorithm_tag": "Sunshine",
         "timestamp": datetime.now().isoformat(),
         "items.used": createUIDEdge(items_used),
         "equilibrium_price": equil_price,
