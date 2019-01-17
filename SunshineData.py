@@ -35,7 +35,7 @@ def getSunshineData(item_name):
     }
     return marketItems 
 
-# items_used should be an array of uids used
+# items_used should be an array of uid(s) used
 def saveSunshineData(items_used, equil_price, supplySlopeData, demandSlopeData):
     data = {
         "timestamp": datetime.now().isoformat(),
