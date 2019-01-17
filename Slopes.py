@@ -2,9 +2,9 @@ class SlopeData:
     supplySlopeData = None
     demandSlopeData = None
 
-    def __init__(self, supply_slopes, demand_slopes):
-        self.supplySlopeData = supply_slopes
-        self.demandSlopeData = demand_slopes
+    def __init__(self, supply_listings, demand_listings):
+        self.supplySlopeData = calculateListingSlopes(supply_listings)
+        self.demandSlopeData = calculateListingSlopes(demand_listings) 
 
     def getSupplySlopes(self): 
         slopes = []
@@ -17,9 +17,6 @@ class SlopeData:
         for item in self.demandSlopeData:
             slopes.append(item['slope'])
         return slopes
-
-def calculateSlopes(marketItem):
-    return SlopeData(calculateListingSlopes(marketItem.getSupplyListings()), calculateListingSlopes(marketItem.getDemandListings()))
 
 def calculateListingSlopes(listings):
     slopes = []

@@ -2,14 +2,14 @@ import json
 import Graph as graph
 from SunshineData import getSunshineData, saveSunshineData
 from Algorithm import Algorithm
-import Slopes as slopes
+from Slopes import SlopeData
 
 items = getSunshineData("Time of Triumph") 
 
 current_item = items['current_item']
 previous_item = items['previous_item']
 
-slopeData = slopes.calculateSlopes(current_item)
+slopeData = SlopeData(current_item.getSupplyListings(), current_item.getDemandListings())
 
 supplySlope = slopeData.supplySlopeData[0]['slope']
 demandSlope = slopeData.demandSlopeData[0]['slope']
