@@ -1,39 +1,11 @@
 from datetime import datetime
 import DataHandler.DataHandler as db 
+import Queries as query
 
 
 def getSunshineData(item_name):
-    query = f"""
-    {{
-            items(func: eq(item_name, "{item_name}"), orderdesc: timestamp, first: 2) {{
-                uid
-                market_data {{
-                    buy_order_graph {{
-                        listings(orderdesc: price) {{
-                            uid
-                            price
-                            amount_at_price
-                            cumulative_listings
-                        }}
-                    }}
-                    sell_order_graph {{
-                        listings(orderasc: price) {{
-                            uid
-                            price
-                            amount_at_price
-                            cumulative_listings
-                        }}
-                    }}
-                }}
-            }}
-        }}
-    """
-    items = db.query(query)
-    marketItems = {
-        "current_item": db.MarketItem(items['items'][0]),
-        "previous_item": db.MarketItem(items['items'][1])
-    }
-    return marketItems 
+    item = db.query(query.marketItems(item_name))
+    return db.MarketItem(item['item'][0])
 
 # items_used should be an array of uid(s) used
 def saveSunshineData(items_used, equil_price, supplySlopeData, demandSlopeData):
@@ -42,13 +14,25 @@ def saveSunshineData(items_used, equil_price, supplySlopeData, demandSlopeData):
         "timestamp": datetime.now().isoformat(),
         "items.used": createUIDEdge(items_used),
         "equilibrium_price": equil_price,
-        "supply_slopes": supplySlopeData,
-        "demand_slopes": demandSlopeData
+        "supply.slopes": supplySlopeData,
+        "demand.slopes": demandSlopeData
     }
     try:
         return db.mutate(data)
     except Exception as e:
         return e
+    
+def getSupplySlope(item_name, price):
+    result = db.query(query.getPreviousSupplySlope(item_name, price))
+    if len(result['result']) == 0:
+        return None
+    return result['result'][0]
+
+def getDemandSlope(item_name, price):
+    result = db.query(query.getPreviousDemandSlope(item_name, price))
+    if len(result['result']) == 0:
+        return None
+    return result['result'][0]
 
 # Used to create edges that hold uid(s)
 def createUIDEdge(items_used):
