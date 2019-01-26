@@ -22,7 +22,7 @@ def mutate(mutation):
         return e 
 
 def newDgraphClient():
-    client_stub = pydgraph.DgraphClientStub('localhost:9080')
+    client_stub = pydgraph.DgraphClientStub('host.docker.internal:9080')
     return pydgraph.DgraphClient(client_stub)
 
 class MarketItem:

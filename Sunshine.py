@@ -1,5 +1,4 @@
 import json
-import Graph as graph
 from SunshineData import getSunshineData, saveSunshineData, getSupplySlope, getDemandSlope
 from Algorithm import Algorithm
 from Slopes import SlopeData
@@ -35,10 +34,3 @@ for item in items:
             print(e)
     except:
         print(f"Could not work with item {item['name']}")
-
-
-
-# Plotting logic. webGraph() for a share-able graph, 
-# localGraph() for development or speed 
-#graph.webGraph(current_item.getDemandPrices(), slopeData.getDemandSlopes(), current_item.getSupplyPrices(), slopeData.getSupplySlopes())
-#graph.localGraph(current_item.getDemandPrices(), slopeData.getDemandSlopes(), current_item.getSupplyPrices(), slopeData.getSupplySlopes())
