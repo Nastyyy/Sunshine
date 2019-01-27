@@ -11,7 +11,6 @@ artifact_data.close()
 for item in items:
     try:
         current_item = getSunshineData(item['name']) 
-
         current_item.slopeData = SlopeData(item_name, current_item.getSupplyListings(), current_item.getDemandListings())
 
         algorithm_data = {

@@ -8,8 +8,11 @@ class SlopeData:
         self.item_name = item_name
         self.supplySlopeData = calculateListingSlopes(supply_listings)
         self.demandSlopeData = calculateListingSlopes(demand_listings) 
-        self.checkForSupplySlopes()
-        #self.checkForDemandSlopes()
+        try:
+            self.checkForSupplySlopes()
+            self.checkForDemandSlopes()
+        except:
+            pass
 
     def getSupplySlopes(self): 
         slopes = []
